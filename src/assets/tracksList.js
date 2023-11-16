@@ -47,12 +47,4 @@ export default [
     title: "Килиманджаро",
     artists: "Lovv66",
   },
-  {
-    id: 7,
-    src: "/tracks/lovv66.mp3",
-    preview: "/images/lovv66.jpg",
-    duration: 127,
-    title: "Килиманджаро",
-    artists: "Lovv66",
-  },
 ];

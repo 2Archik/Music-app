@@ -7,12 +7,12 @@ import cn from "classnames";
 import style from "./track.module.scss";
 
 const Track = (track) => {
-  const { id, src, preview, title, artists, duration } = track;
+  const { id, preview, title, artists, duration } = track;
 
   const { handleToggleAudio, currentTrack, isPlaying } =
     useContext(AudioContext);
 
-  const isCurrentTrack = currentTrack.id === track.id;
+  const isCurrentTrack = currentTrack.id === id;
 
   const formattedDuration = secondsToMMSS(duration);
 

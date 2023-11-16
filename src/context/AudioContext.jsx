@@ -6,7 +6,7 @@ const audio = new Audio();
 export const AudioContext = createContext({});
 
 const AudioProvider = ({ children }) => {
-  const [currentTrack, setCurrentTrack] = useState({});
+  const [currentTrack, setCurrentTrack] = useState(tracksList[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleToggleAudio = (track) => {
@@ -23,12 +23,13 @@ const AudioProvider = ({ children }) => {
       audio.pause();
       setIsPlaying(false);
     } else {
+      audio.src = currentTrack.src;
       audio.play();
       setIsPlaying(true);
     }
   };
 
-  const value = { currentTrack, isPlaying, handleToggleAudio };
+  const value = { audio, currentTrack, isPlaying, handleToggleAudio };
 
   return (
     <AudioContext.Provider value={value}>{children}</AudioContext.Provider>

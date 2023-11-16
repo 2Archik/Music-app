@@ -1,5 +1,19 @@
 .search {
   flex: 1;
+
+  & h3 {
+    letter-spacing: 1px;
+    color: #313131;
+    font-size: 15px;
+    padding-left: 12px;
+    font-weight: 700;
+
+    & span {
+      font-size: 13px;
+      font-weight: 400;
+      padding-left: 12px;
+    }
+  }
 }
 
 .input {

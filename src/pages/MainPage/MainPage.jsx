@@ -29,10 +29,13 @@ const MainPage = () => {
     <div className={style.search}>
       <Input
         className={style.input}
-        placeholder="Поиск треков"
+        placeholder="Поиск"
         onChange={handleChange}
       />
       <div className={style.list}>
+        <h3>
+          Мои треки <span>{tracksList.length}</span>
+        </h3>
         {tracks.map((track) => (
           <Track key={track.id} {...track} />
         ))}
