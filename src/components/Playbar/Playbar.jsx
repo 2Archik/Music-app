@@ -5,15 +5,12 @@ import { PlayArrow, Pause } from "@mui/icons-material";
 import secondsToMMSS from "../../utils/secondsToMMSS";
 import style from "./playbar.module.scss";
 
-const Playbar = () => {
+const TimeControls = () => {
+  const { audio, currentTrack } = useContext(AudioContext);
+
+  const { duration } = currentTrack;
+
   const [currentTime, setCurrentTime] = useState(0);
-
-  const { audio, currentTrack, isPlaying, handleToggleAudio } =
-    useContext(AudioContext);
-
-  const { preview, title, artists, duration } = currentTrack;
-
-  const formattedDuration = secondsToMMSS(duration);
 
   const sliderCurrentTime = Math.round((currentTime / duration) * 100);
   const formatedCurrentTime = secondsToMMSS(currentTime);
@@ -28,7 +25,33 @@ const Playbar = () => {
     const timeInterval = setInterval(() => {
       setCurrentTime(audio.currentTime);
     }, 1000);
+
+    return () => {
+      clearInterval(timeInterval);
+    };
   }, []);
+
+  return (
+    <>
+      <p>{formatedCurrentTime}</p>
+      <Slider
+        step={1}
+        min={0}
+        max={100}
+        value={sliderCurrentTime}
+        onChange={handleChangeCurrentTime}
+      />
+    </>
+  );
+};
+
+const Playbar = () => {
+  const { currentTrack, isPlaying, handleToggleAudio } =
+    useContext(AudioContext);
+
+  const { preview, title, artists, duration } = currentTrack;
+
+  const formattedDuration = secondsToMMSS(duration);
 
   return (
     <div className={style.playbar}>
@@ -41,14 +64,7 @@ const Playbar = () => {
         <p>{artists}</p>
       </div>
       <div className={style.slider}>
-        <p>{formatedCurrentTime}</p>
-        <Slider
-          step={1}
-          min={0}
-          max={100}
-          value={sliderCurrentTime}
-          onChange={handleChangeCurrentTime}
-        />
+        <TimeControls />
         <p>{formattedDuration}</p>
       </div>
     </div>
